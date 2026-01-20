@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { 
   StyleSheet, 
@@ -11,6 +12,7 @@ import {
   StatusBar
 } from 'react-native';
 import { MaterialCommunityIcons, FontAwesome5, Ionicons } from '@expo/vector-icons';
+import { login } from './server.js';
 
 // --- Color Palette ---
 const COLORS = {
@@ -28,10 +30,21 @@ const COLORS = {
 // --- Main App Component ---
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState('Menu'); // Default to Menu
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   
   // Navigation Helper
   const navigateTo = (screen) => setCurrentScreen(screen);
   const goBack = () => setCurrentScreen('Menu');
+
+  const handleLogin = (email, password) => {
+    login(email, password)
+      .then(() => setIsLoggedIn(true))
+      .catch((error) => alert(error));
+  };
+
+  if (!isLoggedIn) {
+    return <LoginScreen onLogin={handleLogin} />;
+  }
 
   // Render the current screen based on state
   const renderScreen = () => {
@@ -57,6 +70,41 @@ export default function App() {
     </SafeAreaView>
   );
 }
+
+// --- Login Screen ---
+const LoginScreen = ({ onLogin }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  return (
+    <View style={styles.container}>
+      <ScreenHeader title="Login" />
+      <View style={styles.formContainer}>
+        <Text style={styles.label}>Email</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="user@example.com"
+          placeholderTextColor="#555"
+          onChangeText={setEmail}
+          value={email}
+        />
+        <Text style={styles.label}>Password</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="password"
+          placeholderTextColor="#555"
+          secureTextEntry
+          onChangeText={setPassword}
+          value={password}
+        />
+        <TouchableOpacity style={styles.saveBtn} onPress={() => onLogin(email, password)}>
+          <Text style={styles.saveBtnText}>Login</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
 
 // --- 1. The Main Menu Screen ---
 const MenuScreen = ({ navigate }) => {
