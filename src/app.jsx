@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { MaterialCommunityIcons, FontAwesome5, Ionicons } from '@expo/vector-icons';
 
 // --- Color Palette ---
 const COLORS = {
@@ -60,7 +59,7 @@ const MenuScreen = ({ navigate }) => {
       {/* Header */}
       <div style={styles.header}>
         <div style={styles.logoRow}>
-          <FontAwesome5 name="piggy-bank" size={20} color={COLORS.primary} />
+          <span>💰</span>
           <p style={styles.logoText}>FINWISE</p>
         </div>
         <button>
@@ -159,14 +158,14 @@ const NewFlexibleExpenseScreen = ({ onBack }) => {
 
         {/* Form Fields */}
         <p style={styles.label}>Expense Name</p>
-        <p input 
+        <input 
           style={styles.input} 
           placeholder="e.g. Dinner at Mario's" 
           placeholderTextColor="#555"
         />
 
         <p style={styles.label}>Amount (€)</p>
-        <pInput 
+        <input 
           style={styles.input} 
           placeholder="0.00" 
           inputType="numeric"
@@ -261,7 +260,7 @@ const Accordion = ({ title, isOpen, onToggle, children }) => (
       <p style={[styles.menuText, isOpen && {color: COLORS.primary}]}>{title}</p>
       <MaterialCommunityIcons name={isOpen ? "chevron-up" : "chevron-down"} size={24} color={COLORS.secondary} />
     </button>
-    {isOpen && <div style={styles.accordionContent}>{children}</div}
+    {isOpen && <div style={styles.accordionContent}>{children}</div>}
   </div>
 );
 
