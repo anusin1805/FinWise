@@ -74,7 +74,7 @@ const MenuScreen = ({ navigate }) => {
         <MenuItem 
           icon="view-dashboard-outline" 
           label="Dashboard" 
-          onPress={() => navigate('Dashboard')} 
+          onClick={() => navigate('Dashboard')} 
         />
 
         {/* 2. Variable Expenses */}
@@ -86,17 +86,17 @@ const MenuScreen = ({ navigate }) => {
           <SubMenuItem 
             label="New Flexible Expense" 
             highlight 
-            onPress={() => navigate('NewFlexibleExpense')} 
+            onClick={() => navigate('NewFlexibleExpense')} 
           />
-          <SubMenuItem label="Weekly Variables (editable)" onPress={() => {}} />
-          <SubMenuItem label="Monthly Summary" onPress={() => {}} />
+          <SubMenuItem label="Weekly Variables (editable)" onClick={() => {}} />
+          <SubMenuItem label="Monthly Summary" onClick={() => {}} />
         </Accordion>
 
         {/* 3. Annual Overview */}
         <MenuItem 
           icon="chart-bar" 
           label="Annual Overview (Aggregated)" 
-          onPress={() => navigate('AnnualOverview')} 
+          onClick={() => navigate('AnnualOverview')} 
         />
 
         {/* 4. Fixed Expenses */}
@@ -121,7 +121,7 @@ const MenuScreen = ({ navigate }) => {
 
         {/* 5-9 Other Menu Items */}
         <MenuItem icon="google-analytics" label="Full-Scope Analysis" />
-        <MenuItem icon="wallet-outline" label="Budget Hub" onPress={() => navigate('BudgetHub')} />
+        <MenuItem icon="wallet-outline" label="Budget Hub" onClick={() => navigate('BudgetHub')} />
         <MenuItem icon="forum-outline" label="Talk to Us" />
         
         <div style={styles.divider} />
@@ -169,7 +169,7 @@ const NewFlexibleExpenseScreen = ({ onBack }) => {
         <pInput 
           style={styles.input} 
           placeholder="0.00" 
-          keyboardType="numeric"
+          inputType="numeric"
           placeholderTextColor="#555"
         />
 
@@ -179,7 +179,7 @@ const NewFlexibleExpenseScreen = ({ onBack }) => {
             <button 
               key={cat} 
               style={[styles.catChip, category === cat && styles.catChipActive]}
-              onPress={() => setCategory(cat)}
+              onClick={() => setCategory(cat)}
             >
               <p style={[styles.catText, category === cat && styles.catTextActive]}>{cat}</p>
             </button>
@@ -231,7 +231,7 @@ const AnnualOverviewScreen = ({ onBack }) => {
 
 const ScreenHeader = ({ title, onBack }) => (
   <div style={styles.screenHeader}>
-    <button onPress={onBack} style={styles.backBtn}>
+    <button onClick={onBack} style={styles.backBtn}>
       <Ionicons name="arrow-back" size={24} color={COLORS.primary} />
     </button>
     <p style={styles.screenTitle}>{title}</p>
@@ -248,8 +248,8 @@ const PlaceholderScreen = ({ title, onBack }) => (
   </div>
 );
 
-const MenuItem = ({ icon, label, onPress }) => (
-  <button style={styles.menuItem} onPress={onPress}>
+const MenuItem = ({ icon, label, onClick }) => (
+  <button style={styles.menuItem} onClick={onClick}>
     {icon && <MaterialCommunityIcons name={icon} size={22} color={COLORS.secondary} style={styles.menuIcon} />}
     <p style={styles.menuText}>{label}</p>
   </button>
@@ -257,7 +257,7 @@ const MenuItem = ({ icon, label, onPress }) => (
 
 const Accordion = ({ title, isOpen, onToggle, children }) => (
   <div style={styles.accordionContainer}>
-    <button style={styles.accordionHeader} onPress={onToggle}>
+    <button style={styles.accordionHeader} onClick={onToggle}>
       <p style={[styles.menuText, isOpen && {color: COLORS.primary}]}>{title}</p>
       <MaterialCommunityIcons name={isOpen ? "chevron-up" : "chevron-down"} size={24} color={COLORS.secondary} />
     </button>
@@ -265,8 +265,8 @@ const Accordion = ({ title, isOpen, onToggle, children }) => (
   </div>
 );
 
-const SubMenuItem = ({ label, highlight, onPress }) => (
-  <button style={styles.subMenuItem} onPress={onPress}>
+const SubMenuItem = ({ label, highlight, onClick }) => (
+  <button style={styles.subMenuItem} onClick={onClick}>
     <p style={[styles.subText, highlight && {color: COLORS.primary, fontWeight: '600'}]}>{label}</p>
     {highlight && <MaterialCommunityIcons name="chevron-right" size={16} color={COLORS.secondary} />}
   </button>
