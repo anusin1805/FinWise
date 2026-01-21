@@ -1,15 +1,4 @@
 import React, { useState } from 'react';
-import { 
-  StyleSheet, 
-  Text, 
-  View, 
-  ScrollView, 
-  TouchableOpacity, 
-  SafeAreaView, 
-  TextInput,
-  Modal,
-  StatusBar
-} from 'react-native';
 import { MaterialCommunityIcons, FontAwesome5, Ionicons } from '@expo/vector-icons';
 
 // --- Color Palette ---
@@ -67,17 +56,17 @@ const MenuScreen = ({ navigate }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <div style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <View style={styles.logoRow}>
+      <div style={styles.header}>
+        <div style={styles.logoRow}>
           <FontAwesome5 name="piggy-bank" size={20} color={COLORS.primary} />
-          <Text style={styles.logoText}>FINWISE</Text>
-        </View>
-        <TouchableOpacity>
+          <p style={styles.logoText}>FINWISE</p>
+        </div>
+        <button>
           <MaterialCommunityIcons name="cog" size={24} color={COLORS.secondary} />
-        </TouchableOpacity>
-      </View>
+        </button>
+      </div>
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
         
@@ -116,18 +105,18 @@ const MenuScreen = ({ navigate }) => {
           isOpen={expandedSection === 'Fixed Expenses'}
           onToggle={() => toggleSection('Fixed Expenses')}
         >
-           <View style={styles.fixedList}>
+           <div style={styles.fixedList}>
              {['TV Subscription', 'Gym Membership', 'Home Rent / Loan', 'Car Fuel', 'Grocery'].map((item, index) => (
-               <View key={index} style={styles.fixedItemRow}>
-                 <Text style={styles.fixedItemText}>{item}</Text>
-                 <Text style={styles.fixedItemCost}>€--.--</Text>
-               </View>
+               <div key={index} style={styles.fixedItemRow}>
+                 <p style={styles.fixedItemText}>{item}</p>
+                 <p style={styles.fixedItemCost}>€--.--</p>
+               </div>
              ))}
-             <TouchableOpacity style={styles.addFixedBtn}>
+             <button style={styles.addFixedBtn}>
                <MaterialCommunityIcons name="plus" size={16} color={COLORS.accent} />
-               <Text style={[styles.subText, {color: COLORS.accent}]}>Add New Fixed Expense</Text>
-             </TouchableOpacity>
-           </View>
+               <p style={[styles.subText, {color: COLORS.accent}]}>Add New Fixed Expense</p>
+             </button>
+           </div>
         </Accordion>
 
         {/* 5-9 Other Menu Items */}
@@ -135,7 +124,7 @@ const MenuScreen = ({ navigate }) => {
         <MenuItem icon="wallet-outline" label="Budget Hub" onPress={() => navigate('BudgetHub')} />
         <MenuItem icon="forum-outline" label="Talk to Us" />
         
-        <View style={styles.divider} />
+        <div style={styles.divider} />
 
         <MenuItem icon="account-circle-outline" label="Profile" />
         <MenuItem icon="translate" label="Language: English" />
@@ -143,13 +132,13 @@ const MenuScreen = ({ navigate }) => {
       </ScrollView>
 
        {/* Footer Record Button */}
-       <View style={styles.footerAction}>
-         <TouchableOpacity style={styles.recordBtn}>
+       <div style={styles.footerAction}>
+         <button style={styles.recordBtn}>
            <MaterialCommunityIcons name="microphone" size={22} color="#fff" />
-           <Text style={styles.recordBtnText}>Record</Text>
-         </TouchableOpacity>
-       </View>
-    </View>
+           <p style={styles.recordBtnText}>Record</p>
+         </button>
+       </div>
+    </div>
   );
 };
 
@@ -158,51 +147,51 @@ const NewFlexibleExpenseScreen = ({ onBack }) => {
   const [category, setCategory] = useState('Food & Dining');
   
   return (
-    <View style={styles.container}>
+    <div style={styles.container}>
       <ScreenHeader title="New Expense" onBack={onBack} />
       
       <ScrollView style={styles.formContainer}>
         {/* Bill Upload Area */}
-        <TouchableOpacity style={styles.uploadArea}>
+        <button style={styles.uploadArea}>
           <MaterialCommunityIcons name="camera-plus-outline" size={40} color={COLORS.secondary} />
-          <Text style={styles.uploadText}>Scan or Upload Bill</Text>
-        </TouchableOpacity>
+          <p style={styles.uploadText}>Scan or Upload Bill</p>
+        </button>
 
         {/* Form Fields */}
-        <Text style={styles.label}>Expense Name</Text>
-        <TextInput 
+        <p style={styles.label}>Expense Name</p>
+        <p input 
           style={styles.input} 
           placeholder="e.g. Dinner at Mario's" 
           placeholderTextColor="#555"
         />
 
-        <Text style={styles.label}>Amount (€)</Text>
-        <TextInput 
+        <p style={styles.label}>Amount (€)</p>
+        <pInput 
           style={styles.input} 
           placeholder="0.00" 
           keyboardType="numeric"
           placeholderTextColor="#555"
         />
 
-        <Text style={styles.label}>Category</Text>
-        <View style={styles.categorySelector}>
+        <p style={styles.label}>Category</p>
+        <div style={styles.categorySelector}>
           {['Food', 'Transport', 'Leisure', 'Shopping'].map((cat) => (
-            <TouchableOpacity 
+            <button 
               key={cat} 
               style={[styles.catChip, category === cat && styles.catChipActive]}
               onPress={() => setCategory(cat)}
             >
-              <Text style={[styles.catText, category === cat && styles.catTextActive]}>{cat}</Text>
-            </TouchableOpacity>
+              <p style={[styles.catText, category === cat && styles.catTextActive]}>{cat}</p>
+            </button>
           ))}
-        </View>
+        </div>
 
-        <TouchableOpacity style={styles.saveBtn}>
-          <Text style={styles.saveBtnText}>Save Expense</Text>
-        </TouchableOpacity>
+        <button style={styles.saveBtn}>
+          <p style={styles.saveBtnText}>Save Expense</p>
+        </button>
 
       </ScrollView>
-    </View>
+    </div>
   );
 };
 
@@ -213,78 +202,77 @@ const AnnualOverviewScreen = ({ onBack }) => {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
 
   return (
-    <View style={styles.container}>
+    <div style={styles.container}>
       <ScreenHeader title="Annual Overview" onBack={onBack} />
       
-      <View style={styles.chartContainer}>
-        <Text style={styles.chartTitle}>Total Expenses (Aggregated)</Text>
-        <Text style={styles.chartSubtitle}>Fixed + Variable</Text>
+      <div style={styles.chartContainer}>
+        <p style={styles.chartTitle}>Total Expenses (Aggregated)</p>
+        <p style={styles.chartSubtitle}>Fixed + Variable</p>
         
-        <View style={styles.barChart}>
+        <div style={styles.barChart}>
           {data.map((h, i) => (
-            <View key={i} style={styles.barColumn}>
-              <View style={[styles.bar, { height: h * 2, backgroundColor: h > 60 ? COLORS.danger : COLORS.accent }]} />
-              <Text style={styles.barLabel}>{months[i]}</Text>
-            </View>
+            <div key={i} style={styles.barColumn}>
+              <div style={[styles.bar, { height: h * 2, backgroundColor: h > 60 ? COLORS.danger : COLORS.accent }]} />
+              <p style={styles.barLabel}>{months[i]}</p>
+            </div>
           ))}
-        </View>
-      </View>
+        </div>
+      </div>
 
-      <View style={styles.statCard}>
-        <Text style={styles.statLabel}>Year to Date</Text>
-        <Text style={styles.statValue}>€ 14,250.00</Text>
-      </View>
-    </View>
+      <div style={styles.statCard}>
+        <p style={styles.statLabel}>Year to Date</p>
+        <p style={styles.statValue}>€ 14,250.00</p>
+      </div>
+    </div>
   );
 };
 
 // --- Helper Components ---
 
 const ScreenHeader = ({ title, onBack }) => (
-  <View style={styles.screenHeader}>
-    <TouchableOpacity onPress={onBack} style={styles.backBtn}>
+  <div style={styles.screenHeader}>
+    <button onPress={onBack} style={styles.backBtn}>
       <Ionicons name="arrow-back" size={24} color={COLORS.primary} />
-    </TouchableOpacity>
-    <Text style={styles.screenTitle}>{title}</Text>
-    <View style={{width: 24}} /> 
-  </View>
+    </button>
+    <p style={styles.screenTitle}>{title}</p>
+    <div style={{width: 24}} /> 
+  </div>
 );
 
 const PlaceholderScreen = ({ title, onBack }) => (
-  <View style={styles.container}>
+  <div style={styles.container}>
     <ScreenHeader title={title} onBack={onBack} />
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text style={{color: COLORS.secondary}}>Feature coming soon</Text>
-    </View>
-  </View>
+    <div style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <p style={{color: COLORS.secondary}}>Feature coming soon</p>
+    </div>
+  </div>
 );
 
 const MenuItem = ({ icon, label, onPress }) => (
-  <TouchableOpacity style={styles.menuItem} onPress={onPress}>
+  <button style={styles.menuItem} onPress={onPress}>
     {icon && <MaterialCommunityIcons name={icon} size={22} color={COLORS.secondary} style={styles.menuIcon} />}
-    <Text style={styles.menuText}>{label}</Text>
-  </TouchableOpacity>
+    <p style={styles.menuText}>{label}</p>
+  </button>
 );
 
 const Accordion = ({ title, isOpen, onToggle, children }) => (
-  <View style={styles.accordionContainer}>
-    <TouchableOpacity style={styles.accordionHeader} onPress={onToggle}>
-      <Text style={[styles.menuText, isOpen && {color: COLORS.primary}]}>{title}</Text>
+  <div style={styles.accordionContainer}>
+    <button style={styles.accordionHeader} onPress={onToggle}>
+      <p style={[styles.menuText, isOpen && {color: COLORS.primary}]}>{title}</p>
       <MaterialCommunityIcons name={isOpen ? "chevron-up" : "chevron-down"} size={24} color={COLORS.secondary} />
-    </TouchableOpacity>
-    {isOpen && <View style={styles.accordionContent}>{children}</View>}
-  </View>
+    </button>
+    {isOpen && <div style={styles.accordionContent}>{children}</div}
+  </div>
 );
 
 const SubMenuItem = ({ label, highlight, onPress }) => (
-  <TouchableOpacity style={styles.subMenuItem} onPress={onPress}>
-    <Text style={[styles.subText, highlight && {color: COLORS.primary, fontWeight: '600'}]}>{label}</Text>
+  <button style={styles.subMenuItem} onPress={onPress}>
+    <p style={[styles.subText, highlight && {color: COLORS.primary, fontWeight: '600'}]}>{label}</p>
     {highlight && <MaterialCommunityIcons name="chevron-right" size={16} color={COLORS.secondary} />}
-  </TouchableOpacity>
+  </button>
 );
 
 // --- Styles ---
-const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.bg,
