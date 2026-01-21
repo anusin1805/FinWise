@@ -1,16 +1,22 @@
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-// Mock server for authentication
-const users = [
-  { id: 1, email: 'user@example.com', password: 'password' },
-];
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-export function login(email, password) {
-  return new Promise((resolve, reject) => {
-    const user = users.find((u) => u.email === email && u.password === password);
-    if (user) {
-      resolve(user);
-    } else {
-      reject('Invalid credentials');
-    }
-  });
-}
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Serve static files from the Vite dist directory
+app.use(express.static(path.join(__dirname, 'dist')));
+
+// Handle React routing - send all requests to index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
+app.listen(PORT, () => {
+  console.log(`✅ FinWise server is running on http://localhost:${PORT}`);
+  console.log(`📱 Open your browser and navigate to the URL above`);
+});
