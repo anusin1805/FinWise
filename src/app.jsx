@@ -39,10 +39,10 @@ export default function App() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <div style={styles.container}>
       <StatusBar barStyle="light-content" />
       {renderScreen()}
-    </SafeAreaView>
+    </div>
   );
 }
 
