@@ -1,6 +1,7 @@
 {
   "name": "finwise-app",
   "version": "1.0.0",
+  "homepage": "https://anusin1805.github.io/F11Grow",
   "description": "FinWise - Personal Finance Tracker",
   "main": "server.js",
   "type": "module",
