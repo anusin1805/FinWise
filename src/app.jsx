@@ -194,6 +194,84 @@ const NewFlexibleExpenseScreen = ({ onBack }) => {
   );
 };
 
+const WeeklyVariablesScreen = ({ onBack }) => {
+  // 1. Initialize: Load saved data from memory, or use defaults
+  const [variables, setVariables] = useState(() => {
+    const saved = localStorage.getItem('weeklyVariables');
+    return saved ? JSON.parse(saved) : [
+      { id: 1, label: 'Groceries', amount: '150.00' },
+      { id: 2, label: 'Transport', amount: '50.00' },
+      { id: 3, label: 'Entertainment', amount: '100.00' },
+      { id: 4, label: 'Coffee/Snacks', amount: '25.00' },
+    ];
+  });
+
+  const handleChange = (id, text) => {
+    setVariables(variables.map(item => 
+      item.id === id ? { ...item, amount: text } : item
+    ));
+  };
+
+  // 2. The Save Function (This was missing!)
+  const handleSave = () => {
+    localStorage.setItem('weeklyVariables', JSON.stringify(variables));
+    alert("Weekly budget updated successfully!");
+    onBack();
+  };
+
+  return (
+    <div style={{ minHeight: '100vh' }}>
+      <ScreenHeader title="Weekly Variables" onBack={onBack} />
+      
+      <div style={{ padding: '20px' }}>
+        <p style={{ color: COLORS.secondary, marginBottom: '20px', fontSize: '14px' }}>
+          Adjust your expected weekly spending limits here.
+        </p>
+
+        {variables.map((item) => (
+          <div key={item.id} style={{ marginBottom: '20px' }}>
+            <label style={{ color: COLORS.secondary, marginBottom: '8px', fontSize: '14px', display: 'block' }}>
+              {item.label} (€)
+            </label>
+            <input 
+              type="number"
+              value={item.amount}
+              onChange={(e) => handleChange(item.id, e.target.value)}
+              style={{
+                backgroundColor: COLORS.inputBg,
+                color: COLORS.primary,
+                padding: '15px',
+                borderRadius: '8px',
+                border: '1px solid #333',
+                width: '100%',
+                fontSize: '16px',
+                outline: 'none'
+              }}
+            />
+          </div>
+        ))}
+
+        <button 
+          onClick={handleSave} // <--- This connects the button!
+          style={{
+            backgroundColor: COLORS.accent,
+            padding: '15px',
+            borderRadius: '10px',
+            border: 'none',
+            width: '100%',
+            color: '#FFF',
+            fontWeight: 'bold',
+            fontSize: '16px',
+            marginTop: '10px',
+            cursor: 'pointer'
+        }}>
+          Save Changes
+        </button>
+      </div>
+    </div>
+  );
+};
+
 // --- 3. Screen: Annual Overview (Graph) ---
 const AnnualOverviewScreen = ({ onBack }) => {
   // Mock data for the graph
